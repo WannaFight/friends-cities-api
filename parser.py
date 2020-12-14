@@ -6,8 +6,7 @@ import vk
 
 
 # Get token from env vars if app is running from heroku
-VK_TOK = (open(f"/home/{getuser()}/Documents/access_token.txt").read(),
-          getenv("VK_TOKEN"))['DYNO' in environ]
+VK_TOK = (open(f"/home/{getuser()}/Documents/access_token.txt").read(), getenv("VK_TOKEN"))['DYNO' in environ]
 API_V = 5.122
 
 
