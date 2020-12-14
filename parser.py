@@ -1,12 +1,13 @@
 from getpass import getuser
-from os import getenv
+from os import getenv, environ
 
 from textblob import TextBlob, exceptions
 import vk
 
 
-VK_TOK = getenv("VK_TOKEN",
-                open(f"/home/{getuser()}/Documents/access_token.txt").read())
+# Get token from env vars if app is running from heroku
+VK_TOK = (open(f"/home/{getuser()}/Documents/access_token.txt").read(),
+          getenv("VK_TOKEN"))['DYNO' in environ]
 API_V = 5.122
 
 
@@ -28,9 +29,14 @@ def translate_names(word: TextBlob, lang='ru'):
 
 
 def get_friends_cities(target_id):
+    """
+    :param target_id: vk id of target https://vk.com/ID
+
+    :returns: JSON with results {'code': code, 'content': [...]}
+    """
     session = vk.Session(access_token=VK_TOK)
     api = vk.API(session, lang='ru', v=API_V)
-    json_resp = {'code': 0, 'content': []}
+    json_resp = {'code': 200, 'content': []}
 
     try:
         target_id = api.users.get(user_ids=target_id)[0]['id']
