@@ -1,6 +1,7 @@
 from os import getenv
+from time import sleep
 
-from textblob import TextBlob, exceptions
+from googletrans import Translator
 import vk
 
 
@@ -8,24 +9,23 @@ VK_TOK = getenv('VK_TOKEN')
 API_V = 5.122
 
 
-def translate_names(word: TextBlob, lang='ru'):
+def translate(word: str, lang):
     """Translate to specified language (default=Russian).
-    If word is empty - return 'City is not defined'
-    If it was not translated - return as it is.
+    If word is empty - return 'City not specified'
     """
+    word = "Город не указан" if not word else word
+    tr = Translator()
+
     try:
-        if word:
-            if word.detect_language() != lang:
-                return word.translate(to=lang).string
-            else:
-                return word.title().string
-        else:
-            return "Город не указан"
-    except exceptions.NotTranslated:
-        return word.string
+        return tr.translate(word, dest=lang).text \
+            if tr.detect(word).lang != lang \
+            else word
+    # Anything can go wrong :(
+    except:
+        return word
 
 
-def get_friends_cities(target_id):
+def get_friends_cities(target_id, lang='ru'):
     """
     :param target_id: vk id of target https://vk.com/ID
 
@@ -45,7 +45,7 @@ def get_friends_cities(target_id):
         return json_resp
 
     if not friends_ids:
-        text = f" User https://vk.com/id{target_id} has no friends."
+        text = f"User https://vk.com/id{target_id} has no friends."
         json_resp['code'] = 204
         json_resp['content'].append({'message': text})
 
@@ -54,12 +54,13 @@ def get_friends_cities(target_id):
     for friend_id in friends_ids:
         resp = api.users.get(user_id=friend_id,
                              fields=['city', 'home_town'])[0]
-        city = translate_names(TextBlob(
-                               dict(resp.pop('city', '')).pop('title', '')))
-        home_town = translate_names(TextBlob(resp.get('home_town', '')))
+
+        city = translate(dict(resp.pop('city', '')).pop('title', ''), lang)
+        home_town = translate(resp.get('home_town', ''), lang)
 
         json_resp['content'].append({'user': f"https://vk.com/id{friend_id}",
                                      'current_city': city,
                                      'home_city': home_town})
+        sleep(1)
 
     return json_resp

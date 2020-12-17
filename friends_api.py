@@ -1,16 +1,19 @@
 from os import path
 
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, request, send_from_directory, make_response
 
 from parser import get_friends_cities
 
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 
 @app.route('/')
 def index():
-    return "Welcome to my api!\n"
+    return make_response(
+            {'code': 200, 'content': [{'message': "Welcome to my API"}]},
+            200)
 
 
 @app.route('/favicon.ico')
@@ -21,7 +24,8 @@ def favicon():
 
 @app.route('/cities/<string:target_id>')
 def get_friends_stats(target_id):
-    return get_friends_cities(target_id)
+    resp = get_friends_cities(target_id, request.headers.get('lang', 'ru'))
+    return make_response(resp)
 
 
 if __name__ == "__main__":
