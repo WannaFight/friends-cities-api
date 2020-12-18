@@ -16,5 +16,6 @@ This repo is based on https://github.com/WannaFight/vk-friends-cities.
 ~$ curl https://cognomen.herokuapp.com/cities/id1 
 >>> {"code":204,"content":[{"message":"User https://vk.com/id1 has no friends."}]}
 
-~$ curl https://cognomen.herokuapp.com/cities/
+~$ curl https://cognomen.herokuapp.com/cities/wannafight
+>>> 
 ```

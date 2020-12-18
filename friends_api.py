@@ -6,6 +6,7 @@ from parser import get_friends_cities
 
 
 app = Flask(__name__)
+# To display cyrillic characters in terminal
 app.config['JSON_AS_ASCII'] = False
 
 
@@ -22,9 +23,13 @@ def favicon():
                                mimetype='image/vnd.microsoft.icon')
 
 
-@app.route('/cities/<string:target_id>')
-def get_friends_stats(target_id):
-    resp = get_friends_cities(target_id, request.headers.get('lang', 'ru'))
+@app.route('/cities')
+def get_friends_stats():
+    user_url = request.args.get('user')
+    lang = request.args.get('lang', 'ru')
+
+    resp = get_friends_cities(user_url, lang)
+
     return make_response(resp)
 
 
