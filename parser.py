@@ -61,6 +61,6 @@ def get_friends_cities(target_id, lang='ru'):
         json_resp['content'].append({'user': f"https://vk.com/id{friend_id}",
                                      'current_city': city,
                                      'home_city': home_town})
-        sleep(1)
+        # sleep(1)
 
     return json_resp
