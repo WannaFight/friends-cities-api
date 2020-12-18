@@ -1,1 +1,1 @@
-web: gunicorn friends_api:app
+web: gunicorn friends_api:app --timeout 1000
