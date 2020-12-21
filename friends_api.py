@@ -2,7 +2,7 @@ from os import path
 
 from flask import Flask, request, send_from_directory, make_response
 
-from parser import get_friends_cities
+from parser import get_response
 
 
 app = Flask(__name__)
@@ -26,9 +26,10 @@ def favicon():
 @app.route('/cities')
 def get_friends_stats():
     user_url = request.args.get('user')
-    lang = request.args.get('lang', 'ru')
+    # Due to low speed this functions was suspended
+    # lang = request.args.get('lang', 'ru')
 
-    resp = get_friends_cities(user_url, lang)
+    resp = get_response(user_url)
 
     return make_response(resp)
 
