@@ -8,8 +8,10 @@ This repo is based on https://github.com/WannaFight/vk-friends-cities.
 |                                                    |                         |
 |----------------------------------------------------|-------------------------|
 |https://cognomen.herokuapp.com/                     |Base URL                 |
-|https://cognomen.herokuapp.com/cities?user=TARGET_ID|Returns JSON with results, send arg "lang=en" to display output in English, default = Russian|
+|https://cognomen.herokuapp.com/cities?user=TARGET_ID&lang=LANG|Returns JSON with results, send arg "lang=en" to display output in English, default = Russian|
 
+
+</br>
 
 ```bash
 ~$ curl https://cognomen.herokuapp.com 
@@ -18,25 +20,21 @@ This repo is based on https://github.com/WannaFight/vk-friends-cities.
 ~$ curl https://cognomen.herokuapp.com/cities?user=id1 
 >>> {"code":204,"content":[{"message":"User https://vk.com/id1 has no friends."}]}
 
-~$ # lang argument is suspended
 ~$ curl https://cognomen.herokuapp.com/cities?user=cyeecespedes&lang=en
->>> {"code":200,"content":[{"current_city":"St. Petersburg","home_city":"City not specified","user":"https://vk.com/id31752625"},...]}
+>>> {"code":200,"content":[{"current_city":"St. Petersburg","home_city":"Not specified","user":"https://vk.com/id31752625"},...]}
 ```
 
-</br>
+LANG is code for language supported language by [Google Translate](https://cloud.google.com/translate/docs/languages)
 
 ## requirements.txt
 |                     |                                               |
 |---------------------|-----------------------------------------------|
 |Flask==1.1.2         |API                                            |
-|~~googletrans==4.0.0rc1~~|~~Translate names of cities to specifies language~~|
+|googletrans==4.0.0rc1|Translate names of cities to specifies language|
 |vk==2.0.2            |VK API                                         |
 |gunicorn==20.0.4     |Server to run on heroku                        |
 
 </br>
-
-## To fix
-Apparently, there is a 30 seconds timeout on Heroku. \
-That's why I have to suspend translate function. I will try to figure it out  
+ 
 
 

@@ -26,10 +26,9 @@ def favicon():
 @app.route('/cities')
 def get_friends_stats():
     user_url = request.args.get('user')
-    # Due to low speed this functions was suspended
-    # lang = request.args.get('lang', 'ru')
+    lang = request.args.get('lang', 'ru')
 
-    resp = get_response(user_url)
+    resp = get_response(user_url, lang)
 
     return make_response(resp)
 
