@@ -24,7 +24,7 @@ This repo is based on https://github.com/WannaFight/vk-friends-cities.
 >>> {"code":200,"content":[{"current_city":"St. Petersburg","home_city":"Not specified","user":"https://vk.com/id31752625"},...]}
 ```
 
-LANG is code for language supported language by [Google Translate](https://cloud.google.com/translate/docs/languages)
+LANG is [code](https://cloud.google.com/translate/docs/languages) for language supported by Google Translate
 
 ## requirements.txt
 |                     |                                               |
