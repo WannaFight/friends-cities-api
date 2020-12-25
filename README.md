@@ -5,7 +5,7 @@ This repo is based on https://github.com/WannaFight/vk-friends-cities.
 </br>
 
 ## Usage
-|                                                    |                         |
+| Endpoint                                           | Description             |
 |----------------------------------------------------|-------------------------|
 |https://cognomen.herokuapp.com/                     |Base URL                 |
 |https://cognomen.herokuapp.com/cities?user=TARGET_ID&lang=LANG|Returns JSON with results, send arg "lang=en" to display output in English, default = Russian|
